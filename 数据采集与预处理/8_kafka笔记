@@ -1,0 +1,23 @@
+kafka是一个实时数据处理系统，也是一个消息中间件。可以横向扩展、高可靠、还变态快。
+       实时数据处理系统，就是数据一旦产生，就要能快速进行处理。
+
+Producer：消息生产者。发送消息
+Consumer：消息消费者，读取消息
+Topic：主题，可以理解为一个队列。Kafka二代是这么做的。
+Topic：主题，可以理解为一个队列。Kafka二代是这么做的。
+
+Consumer Group(CG)：若干个消费者的集合。这是kafka用来实现一个主题消息的广播和单播的手段。
+一个主题可以有多个消费组，主题消息会复制(不是真正的复制，是概念上的)到所有的消费组。
+但每个消费组只会把消息发送给其中的一个消费者。如果要实现广播，只需要每个消费者占据一个独立的消费组就可以了。
+
+Broker：一台kafka服务器就是一个broker。一个集群有多个broker，
+一个broker可以容纳多个topic。
+
+Partition：为了实现扩展性，一个非常大的topic可以分布到多个kafka服务器上，
+一个topic可以分为多个partition，每个partition都是一个有序队列。
+每个partition是一个有序的队列。partition中的每条消息都会被分配一个有序的id(offset)。
+kafka只保证一个partition中的顺序，不保证一个topic的整体(多个partition)的顺序。
+
+Offset：kafka的存储文件都是按照offset.kafka来命名，用offset做名字的好处是方便查找，
+例如你想找到位于2049的位置，只要找到2048.kafka的文件即可。
+第一个offset就是00000.kafka。
